@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchProducts } from './action';
 import { useEffect, useState } from 'react';
 import { Table } from 'antd';
+import { List, ListItem, ListItemText } from '@mui/material';
 
 const ProductList = () => {
     const dispatch = useDispatch();
@@ -42,7 +43,16 @@ const ProductList = () => {
             }
             {activeTab === 'list' &&
                 <div>
-                    <Table dataSource={data.products} columns={columns} />
+                    <List>
+                        {data.products.map((product) => (
+                            <ListItem key={product.id}>
+                                <ListItemText
+                                    primary={product.title}
+                                    secondary={`Price: ${product.price}, Description: ${product.description}`}
+                                />
+                            </ListItem>
+                        ))}
+                    </List>
                 </div>
             }
         </div>
