@@ -1,11 +1,30 @@
 import ProductItem from './ProductItem';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchProducts } from './action';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { Table } from 'antd';
 
 const ProductList = () => {
     const dispatch = useDispatch();
     const data = useSelector((state) => state.products);
+    const [activeTab, setActiveTab] = useState('table');
+    const columns = [
+        {
+            title: 'Title',
+            dataIndex: 'title',
+            key: 'title',
+        },
+        {
+            title: 'Price',
+            dataIndex: 'price',
+            key: 'price',
+        },
+        {
+            title: 'Description',
+            dataIndex: 'description',
+            key: 'description',
+        },
+    ]
 
     useEffect(() => {
         dispatch(fetchProducts());
@@ -14,9 +33,18 @@ const ProductList = () => {
     return (
         <div>
             <h2>Product List</h2>
-            {data.products.map((product) => {
-                return <ProductItem product={product} key={product.id} />
-            })}
+            <button onClick={() => setActiveTab('table')}>Table view</button>
+            <button onClick={() => setActiveTab('list')}>List view</button>
+            {activeTab === 'table' &&
+                <div>
+                    <Table dataSource={data.products} columns={columns} />
+                </div>
+            }
+            {activeTab === 'list' &&
+                <div>
+                    <Table dataSource={data.products} columns={columns} />
+                </div>
+            }
         </div>
     );
 };
