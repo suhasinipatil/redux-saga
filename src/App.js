@@ -4,19 +4,12 @@ import { useSelector } from 'react-redux';
 
 function App() {
   const data = useSelector((state) => state.cart);
-  console.log(data);
+
   return (
     <div>
       <h1>React App</h1>
       <h2>Cart</h2>
-      {data.length}
-      {data.cart.map((item) => {
-        return (
-          <li key={item.id}>
-            {item.title} - {item.quantity}
-          </li>
-        );
-      })}
+      {data.totalCount > 0 && <p>Total Count: {data.totalCount}</p>}
       <ProductList />
     </div>
   );

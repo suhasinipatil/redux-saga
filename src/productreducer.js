@@ -5,8 +5,6 @@ const initialState = {
 };
 
 const productreducer = (state = initialState, action) => {
-    console.log(state);
-    console.log(action.type);
     switch (action.type) {
         case SET_PRODUCTS:
             return {
